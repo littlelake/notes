@@ -1,0 +1,96 @@
+/**index.wxss**/
+
+page {
+  background: #fff;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  font-size: 32rpx;
+  color: #333;
+}
+
+.notes-wrap {
+  padding: 40rpx;
+}
+
+.notes-wrap .notes-list .notes-item {
+  padding: 30rpx 0;
+  overflow: hidden;
+}
+
+.notes-wrap .notes-list .notes-item-checked {
+  overflow: hidden;
+  color: #d0d0d0;
+}
+
+.notes-wrap .notes-list .notes-item text, .notes-wrap .notes-list .notes-item-checked text {
+  width: calc(100% - 100rpx);
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  display: inline-block;
+  overflow: hidden;
+  vertical-align: middle;
+}
+
+checkbox .wx-checkbox-input {
+  border-radius: 4rpx;
+  height: 26rpx;
+  width: 26rpx;
+  margin-top: -4rpx;
+}
+
+checkbox .wx-checkbox-input.wx-checkbox-input-checked::before {
+  /* background-color: #e02e24;
+  border: 1rpx solid #e02e24; */
+}
+
+.notes-wrap .notes-list .notes-item .notes-check{
+  padding-right: 20rpx;
+  vertical-align: middle;
+}
+
+.notes-add {
+  position: fixed;
+  right: 30rpx;
+  bottom: 100rpx;
+  width: 100rpx;
+  height: 100rpx;
+  background: #617dd7;
+  color: #fff;
+  text-align: center;
+  line-height: 95rpx;
+  border-radius: 50%;
+  font-size: 50rpx;
+}
+
+.notes-input {
+  position: fixed;
+  bottom: -200rpx;
+  left: 0;
+  width: 100%;
+  background-color: #f0f0f0;
+  padding: 20rpx;
+  box-sizing: border-box;
+}
+
+.notes-input-show {
+  transition: bottom 50ms ease-out;
+}
+
+.notes-input input {
+  background-color: #fff;
+  padding: 15rpx 20rpx;
+}
+
+.notes-add-placeholder {
+  color: #d4d4d4;
+}
+
+.notes-sub-title {
+  margin: 0 -40rpx;
+  padding: 20rpx 40rpx;
+  font-size: 22rpx;
+  height: 30rpx;
+  background: #edeffc;
+  color: #a1a3b0;
+}
