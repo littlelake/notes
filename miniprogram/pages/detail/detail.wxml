@@ -1,0 +1,2 @@
+<textarea class='detail-title' auto-height='{{true}}' value='{{title}}' bindinput='bindChangeTitle'></textarea>
+<textarea class='detail-remark' placeholder='备注' value='{{remark}}' bindinput='bindChangeRemark'></textarea>

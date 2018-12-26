@@ -1,0 +1,16 @@
+.detail-title, .detail-remark {
+  font-size: 32rpx;
+  width: calc(100% - 60rpx);
+}
+
+.detail-title {
+  margin: 0 30rpx;
+  padding: 30rpx 0;
+  font-size: 32rpx;
+  border-bottom: 1px solid #d8d8d8;
+}
+
+.detail-remark {
+  padding: 30rpx;
+  font-size: 30rpx;
+}

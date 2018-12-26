@@ -2,7 +2,7 @@
   <view class='notes-list'>
     <view class='notes-item' wx:for="{{dataList}}" wx:key="{{index}}" wx:if="{{!item.ischeck}}">
       <checkbox class='notes-check' bindtap='bindcheckfinish' data-id="{{item._id}}"></checkbox>
-      <text>{{item.noteInfo}}</text>
+      <text bindtap='goToDetail' data-id="{{item._id}}">{{item.noteInfo}}</text>
     </view>
   </view>
   <view class='notes-sub-title' wx:if="{{!!dataList.length}}">已完成</view>

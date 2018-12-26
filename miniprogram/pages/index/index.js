@@ -16,7 +16,18 @@ Page({
   },
 
   onLoad: function () {
+    console.log('load')
     this.bindDataList();
+  },
+
+  // 页面显示/切入前台时触发
+  onShow: function() {
+    console.log('show')
+    this.bindDataList();
+  },
+
+  onReady: function() {
+    console.log('ready')
   },
 
   // 显示输入框，并且弹出键盘
@@ -73,6 +84,7 @@ Page({
         noteInfo: value
       }
     }).then(res => {
+      console.log(res);
       this.setData({
         isShow: false,
         focus: false,
@@ -101,6 +113,15 @@ Page({
       }
     }).catch(err => {
       console.error(err);
+    })
+  },
+
+  // 跳转到详情页面
+  goToDetail: function(e) {
+    // 获取当前列的id
+    const _id = e.target.dataset.id;
+    wx.navigateTo({
+      url: `/pages/detail/detail?id=${_id}`,
     })
   }
 })
