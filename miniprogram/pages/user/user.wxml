@@ -1,0 +1,37 @@
+<view class='user-head'>
+  <view class='user-img'>
+    <!-- <image src=''></image> -->
+    <open-data type="userAvatarUrl"></open-data>
+  </view>
+  <view class='user-head-info'>
+    <!-- <text>lisp</text>
+    <text>微信号：lake1220</text> -->
+    <!-- 如果只是展示用户头像昵称，可以使用 <open-data /> 组件 -->
+    <!-- <open-data type="userAvatarUrl"></open-data> -->
+    <open-data type="userNickName"></open-data>
+    <!-- 需要使用 button 来授权登录 -->
+    <button wx:if="{{canIUse}}" open-type="getUserInfo" bindgetuserinfo="bindGetUserInfo">
+      授权登录
+    </button>
+    <view wx:else>请升级微信版本</view>
+  </view>
+</view>
+
+<view class='tabs'>
+  <view class='tab'>
+    <view class='tab-icon'>
+      <image src='../../images/settings.png'></image>
+    </view>
+    <view class='tab-text'>
+      设置
+    </view>
+  </view>
+  <view class='tab'>
+    <view class='tab-icon'>
+      <image src='../../images/aboutus.png'></image>
+    </view>
+    <view class='tab-text'>
+      关于小记
+    </view>
+  </view>
+</view>

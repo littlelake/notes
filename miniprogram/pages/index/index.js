@@ -12,64 +12,103 @@ Page({
     // 动态显示输入框的bottom
     bottom: -200,
     // 输入框中的信息
-    inputValue: ''
+    inputValue: '',
+    // 是否上下滚动
+    isScroll: true,
+    // scroll-view的高度
+    windowHeight: 0,
+    // tabBar的高度
+    tabBarHeight: 0,
   },
 
   onLoad: function () {
-    console.log('load')
-    this.bindDataList();
+    const that = this;
+    // this.bindDataList();
+    // 计算tabBar的高度
+    wx.getSystemInfo({
+      success: function (res) {
+        console.log(res);
+        if (res.errMsg === 'getSystemInfo:ok') {
+          const tabBarHeight = res.screenHeight - res.windowHeight;
+          that.setData({ tabBarHeight, windowHeight: res.windowHeight });
+        }
+      },
+    })
   },
 
   // 页面显示/切入前台时触发
-  onShow: function() {
-    console.log('show')
+  onShow: function () {
     this.bindDataList();
   },
 
-  onReady: function() {
+  onReady: function () {
     console.log('ready')
   },
 
   // 显示输入框，并且弹出键盘
   showAddInput: function () {
     this.setData({
-      isShow: true,
-      focus: true
+      focus: true,
+      isScroll: false
     })
   },
 
   // 聚焦时设置输入框的高度
   bindfocus: function (e) {
     const that = this;
-    that.setData({ isShow: true, bottom: e.detail.height });
+    const { tabBarHeight } = this.data;
+    that.setData({ isShow: true, bottom: e.detail.height - tabBarHeight / 2 + 10 });
   },
 
   // 失去焦点时设置输入框的bottom值
   bindblur: function () {
     const that = this;
-    that.setData({ bottom: -200, isShow: false });
+    that.setData({ bottom: -200, isShow: false, isScroll: true });
   },
 
   // 请求数据库列表
   bindDataList: function () {
     // 初始化
-    const db = wx.cloud.database();
+    // const db = wx.cloud.database();
+    // wx.showLoading({
+    //   title: '请稍候',
+    // });
+    // db.collection('notes').where({
+    //   _openid: 'oWl_80LXwJ4Ch1GCMc500cYVvfE4'
+    // }).get().then((res) => {
+    //   wx.hideLoading();
+    //   if (res.errMsg === 'collection.get:ok') {
+    //     // 将数据进行反转
+    //     const data = res.data.length > 1 ? res.data.reverse() : res.data;
+    //     this.setData({
+    //       dataList: res.data
+    //     })
+    //   }
+    // }).catch(err => {
+    //   wx.hideLoading();
+    //   console.err(err);
+    // });
+
     wx.showLoading({
       title: '请稍候',
     });
-    db.collection('notes').where({}).get().then((res) => {
-      wx.hideLoading();
-      if (res.errMsg === 'collection.get:ok') {
-        // 将数据进行反转
-        const data = res.data.length > 1 ? res.data.reverse() : res.data;
-        this.setData({
-          dataList: res.data
-        })
+    // 利用云函数来查找列表
+    wx.cloud.callFunction({
+      name: 'indexQuery',
+      data: {
+        _openid: 'oWl_80LXwJ4Ch1GCMc500cYVvfE4'
+      },
+      complete: res => {
+        wx.hideLoading();
+        if (res.errMsg === 'cloud.callFunction:ok') {
+          // 将数据进行反转
+          const data = res.result.length > 1 ? res.result.reverse() : res.result;
+          this.setData({
+            dataList: data
+          })
+        }
       }
-    }).catch(err => {
-      wx.hideLoading();
-      console.err(err);
-    });
+    })
   },
 
   // 提交输入框中的信息
@@ -84,11 +123,11 @@ Page({
         noteInfo: value
       }
     }).then(res => {
-      console.log(res);
       this.setData({
         isShow: false,
         focus: false,
-        inputValue: ''
+        inputValue: '',
+        isScroll: true
       });
       this.bindDataList();
     }).catch(err => {
@@ -117,7 +156,7 @@ Page({
   },
 
   // 跳转到详情页面
-  goToDetail: function(e) {
+  goToDetail: function (e) {
     // 获取当前列的id
     const _id = e.target.dataset.id;
     wx.navigateTo({

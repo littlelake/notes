@@ -39,11 +39,6 @@ checkbox .wx-checkbox-input {
   margin-top: -4rpx;
 }
 
-checkbox .wx-checkbox-input.wx-checkbox-input-checked::before {
-  /* background-color: #e02e24;
-  border: 1rpx solid #e02e24; */
-}
-
 .notes-wrap .notes-list .notes-item .notes-check{
   padding-right: 20rpx;
   vertical-align: middle;
@@ -74,7 +69,7 @@ checkbox .wx-checkbox-input.wx-checkbox-input-checked::before {
 }
 
 .notes-input-show {
-  transition: bottom 50ms ease-out;
+  /* transition: bottom 200ms ease-out; */
 }
 
 .notes-input input {

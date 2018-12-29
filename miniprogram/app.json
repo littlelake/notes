@@ -1,5 +1,6 @@
 {
   "pages": [
+    "pages/user/user",
     "pages/index/index",
     "pages/detail/detail",
     "pages/userConsole/userConsole",
@@ -15,5 +16,22 @@
     "navigationBarBackgroundColor": "#fff",
     "navigationBarTitleText": "小记",
     "navigationBarTextStyle": "black"
+  },
+  "tabBar": {
+    "selectedColor": "#617dd7",
+    "list": [
+      {
+        "text": "小记",
+        "pagePath": "pages/index/index",
+        "iconPath": "images/record.png",
+        "selectedIconPath": "images/record_active.png"
+      },
+      {
+        "text": "我",
+        "pagePath": "pages/user/user",
+        "iconPath": "images/me.png",
+        "selectedIconPath": "images/me_active.png"
+      }
+    ]
   }
 }

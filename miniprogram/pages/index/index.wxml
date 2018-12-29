@@ -1,19 +1,22 @@
-<view class='notes-wrap'>
-  <view class='notes-list'>
-    <view class='notes-item' wx:for="{{dataList}}" wx:key="{{index}}" wx:if="{{!item.ischeck}}">
-      <checkbox class='notes-check' bindtap='bindcheckfinish' data-id="{{item._id}}"></checkbox>
-      <text bindtap='goToDetail' data-id="{{item._id}}">{{item.noteInfo}}</text>
+<scroll-view scroll-y="{{isScroll}}" style='height: {{windowHeight}}px;'>
+  <view class='notes-wrap'>
+    <view class='notes-list'>
+      <view class='notes-item' wx:for="{{dataList}}" wx:key="{{index}}" wx:if="{{!item.ischeck}}">
+        <checkbox class='notes-check' bindtap='bindcheckfinish' data-id="{{item._id}}"></checkbox>
+        <text bindtap='goToDetail' data-id="{{item._id}}">{{item.noteInfo}}</text>
+      </view>
+    </view>
+    <view class='notes-sub-title' wx:if="{{!!dataList.length}}">已完成</view>
+    <view class='notes-list'>
+      <view class='notes-item notes-item-checked' wx:for="{{dataList}}" wx:key="{{index}}" wx:if="{{!!item.ischeck}}">
+        <checkbox class='notes-check' bindtap='bindcheckfinish' data-id="{{item._id}}" checked='{{true}}' disabled='{{true}}' />
+        <text>{{item.noteInfo}}</text>
+      </view>
     </view>
   </view>
-  <view class='notes-sub-title' wx:if="{{!!dataList.length}}">已完成</view>
-  <view class='notes-list'>
-    <view class='notes-item notes-item-checked' wx:for="{{dataList}}" wx:key="{{index}}" wx:if="{{!!item.ischeck}}">
-      <checkbox class='notes-check' bindtap='bindcheckfinish' data-id="{{item._id}}" checked='{{true}}' disabled='{{true}}'></checkbox>
-      <text>{{item.noteInfo}}</text>
-    </view>
+  <view class='notes-add' bindtap='showAddInput'>+</view>
+  <view class='notes-mask'></view>
+  <view class='notes-input {{isShow ? "notes-input-show" : ""}}' style="bottom: {{bottom}}px;">
+    <input value="{{inputValue}}" placeholder='例如：我今天发工资啦！！！' placeholder-class='notes-add-placeholder' confirm-type='send' focus='{{focus}}' bindconfirm='bindNotesAdd' bindfocus="bindfocus" bindblur='bindblur' adjust-position="{{false}}" cursor-spacing="100"></input>
   </view>
-</view>
-<view class='notes-add' bindtap='showAddInput'>+</view>
-<view class='notes-input {{isShow ? "notes-input-show" : ""}}' style="bottom: {{bottom}}px;">
-  <input value="{{inputValue}}" placeholder='例如：我今天发工资啦！！！' placeholder-class='notes-add-placeholder' confirm-type='send' focus='{{focus}}' bindconfirm='bindNotesAdd' bindfocus="bindfocus" bindblur='bindblur' adjust-position="{{false}}"></input>
-</view>
+</scroll-view>
