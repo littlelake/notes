@@ -19,6 +19,10 @@ Page({
     windowHeight: 0,
     // tabBar的高度
     tabBarHeight: 0,
+    // 开始触摸的点
+    startX: 0,
+    // 删除按钮的总长度
+    delBtnWidth: 150,
   },
 
   onLoad: function () {
@@ -162,5 +166,59 @@ Page({
     wx.navigateTo({
       url: `/pages/detail/detail?id=${_id}`,
     })
+  },
+
+  // 手指开始移动时
+  bindtouchstart: function (e) {
+    // 判断是否只有一个触摸点
+    if (e.touches.length === 1) {
+      // 将开始触摸的点记录下来
+      this.setData({ startX: e.touches[0].clientX });
+    }
+  },
+
+  // 手指移动中
+  bindtouchmove: function (e) {
+    const that = this;
+    const { startX, delBtnWidth, dataList } = that.data;
+    // 当前item向左移动的位移
+    let styleX = '';
+    // 判断是否只有一个触摸点
+    if (e.touches.length === 1) {
+      const moveX = e.touches[0].clientX;
+      // 用startX - moveX
+      const diffX = startX - moveX;
+      // 通过left来改变当前item的位移
+      if (diffX === 0 || diffX < 0) {
+        styleX = "left: 0";
+      } else {
+        styleX = "left: -" + diffX + "px";
+        if (diffX >= delBtnWidth) {
+          styleX = "left: -" + delBtnWidth + "px";
+        }
+      }
+
+      //获取手指触摸的是哪一个item
+      const id = e.target.dataset.id;
+      // console.log(index);
+
+      const list = dataList;
+      let currentIndex = -1;
+      list.every((item, index) => {
+        if(item._id === id) {
+          currentIndex = index;
+          return false;
+        }
+      });
+      console.log(currentIndex);
+      // list[index].styleX = styleX;
+      // console.log(list);
+      // that.setData({ dataList: list });
+    }
+  },
+
+  // 手指结束移动时
+  bindtouchend: function (e) {
+    console.log(e);
   }
 })
