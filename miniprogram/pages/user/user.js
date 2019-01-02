@@ -6,7 +6,8 @@ Page({
    */
   data: {
     userInfo: {},
-    canIUse: wx.canIUse('button.open-type.getUserInfo')
+    canIUse: wx.canIUse('button.open-type.getUserInfo'),
+    isAuth: true
   },
 
   /**
@@ -17,6 +18,12 @@ Page({
     // 查看是否授权
     wx.getSetting({
       success(res) {
+        // 判断是否授权，授权则不显示授权按钮
+        if (res.errMsg === 'getSetting:ok') {
+          that.setData({ isAuth: true });
+        } else {
+          that.setData({ isAuth: false });
+        }
         if (res.authSetting['scope.userInfo']) {
           // 已经授权，可以直接调用 getUserInfo 获取头像昵称
           wx.getUserInfo({
@@ -25,16 +32,23 @@ Page({
                 userInfo: res.userInfo
               });
             }
-          })
+          });
         }
       }
     })
   },
 
   // 授权获取信息
-  bindGetUserInfo: function(e) {
+  bindGetUserInfo: function (e) {
     const userInfo = e.detail.userInfo;
-    this.setData({userInfo});
+    this.setData({ userInfo });
+  },
+
+  // 关于小记页面跳转
+  bindAboutUs: function() {
+    wx.navigateTo({
+      url: '/pages/aboutUs/aboutUs',
+    })
   },
 
   /**

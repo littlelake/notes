@@ -1,0 +1,10 @@
+.notes-article {
+  padding: 30rpx;
+}
+
+.notes-article .section {
+  text-indent: 40rpx;
+  font-size: 34rpx;
+  color: #333;
+  line-height: 60rpx;
+}

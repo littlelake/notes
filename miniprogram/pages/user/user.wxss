@@ -33,6 +33,14 @@ page {
   flex: 1;
 }
 
+.user-head-info .user-auth-btn {
+  font-size: 25rpx;
+  width: 200rpx;
+  background-color: #617dd7;
+  border-color: #617dd7;
+  color: #fff;
+}
+
 .user-head-info text {
   display: block;
 }
@@ -89,4 +97,12 @@ page {
   flex: 1;
   line-height: 100rpx;
   border-bottom: 1rpx solid #e5e5e5;
+}
+
+.tabs .tab:last-child .tab-text {
+  border-bottom: 0;
+}
+
+.user-tips {
+  font-size: 28rpx;
 }
