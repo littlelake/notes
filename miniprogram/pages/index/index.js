@@ -209,6 +209,27 @@ Page({
 
   // 手指结束移动时
   bindtouchend: function (e) {
-    console.log(e);
+    const that = this;
+    const { startX, delBtnWidth, dataList } = that.data;
+    // 判断是否只有一个触摸点
+    if (e.changedTouches.length === 1) {
+      const endX = e.changedTouches[0].clientX;
+      // 如果起点到终点的距离小于delBtnWidth/2，那么还是回到0的位置，如果大于delBtnWidth/2.那么则显示删除按钮
+      const diffX = startX - endX;
+      // 当前item向左移动的位移
+      let styleX = '';
+      if (diffX < (delBtnWidth / 2)) {
+        styleX = "margin-left: 0";
+      } else {
+        styleX = "margin-left: -" + delBtnWidth + "px";
+      }
+
+      //获取手指触摸的是哪一个item
+      const index = e.currentTarget.dataset.index;
+
+      const list = dataList;
+      list[index].styleX = styleX;
+      that.setData({ dataList: list });
+    }
   }
 })
