@@ -22,7 +22,7 @@ Page({
     // 开始触摸的点
     startX: 0,
     // 删除按钮的总长度
-    delBtnWidth: 150,
+    delBtnWidth: 100,
   },
 
   onLoad: function () {
@@ -190,30 +190,20 @@ Page({
       const diffX = startX - moveX;
       // 通过left来改变当前item的位移
       if (diffX === 0 || diffX < 0) {
-        styleX = "left: 0";
+        styleX = "margin-left: 0";
       } else {
-        styleX = "left: -" + diffX + "px";
+        styleX = "margin-left: -" + diffX + "px";
         if (diffX >= delBtnWidth) {
-          styleX = "left: -" + delBtnWidth + "px";
+          styleX = "margin-left: -" + delBtnWidth + "px";
         }
       }
 
       //获取手指触摸的是哪一个item
-      const id = e.target.dataset.id;
-      // console.log(index);
+      const index = e.currentTarget.dataset.index;
 
       const list = dataList;
-      let currentIndex = -1;
-      list.every((item, index) => {
-        if(item._id === id) {
-          currentIndex = index;
-          return false;
-        }
-      });
-      console.log(currentIndex);
-      // list[index].styleX = styleX;
-      // console.log(list);
-      // that.setData({ dataList: list });
+      list[index].styleX = styleX;
+      that.setData({ dataList: list });
     }
   },
 

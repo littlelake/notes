@@ -1,7 +1,7 @@
 <scroll-view scroll-y="{{isScroll}}" style='height: {{windowHeight}}px;'>
   <view class='notes-wrap'>
     <view class='notes-list'>
-      <view class='notes-item' wx:for="{{dataList}}" wx:key="{{index}}" wx:if="{{!item.ischeck}}" bindtouchstart='bindtouchstart' bindtouchmove='bindtouchmove' bindtouchend='bindtouchend' style="{{!!item.styleX ? item.styleX : ''}}">
+      <view class='notes-item' wx:for="{{dataList}}" wx:key="{{index}}" wx:if="{{!item.ischeck}}" bindtouchstart='bindtouchstart' bindtouchmove='bindtouchmove' bindtouchend='bindtouchend' style="{{item.styleX}}" data-index="{{index}}">
         <checkbox class='notes-check' bindtap='bindcheckfinish' data-id="{{item._id}}"></checkbox>
         <text bindtap='goToDetail' data-id="{{item._id}}">{{item.noteInfo}}</text>
       </view>
