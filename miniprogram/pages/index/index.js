@@ -23,6 +23,8 @@ Page({
     startX: 0,
     // 删除按钮的总长度
     delBtnWidth: 100,
+    // 记录当前进行删除按钮操作的index
+    delIndex: -1
   },
 
   onLoad: function () {
@@ -51,10 +53,13 @@ Page({
 
   // 显示输入框，并且弹出键盘
   showAddInput: function () {
+    const { delIndex, dataList } = this.data;
+    dataList[delIndex].styleX = '';
     this.setData({
       focus: true,
-      isScroll: false
-    })
+      isScroll: false,
+      dataList
+    });
   },
 
   // 聚焦时设置输入框的高度
@@ -170,10 +175,16 @@ Page({
 
   // 手指开始移动时
   bindtouchstart: function (e) {
+    const that = this;
+    const { delIndex, dataList } = that.data;
     // 判断是否只有一个触摸点
     if (e.touches.length === 1) {
+      if (delIndex !== -1) {
+        dataList[delIndex].styleX = '';
+      }
+      const index = e.currentTarget.dataset.index;
       // 将开始触摸的点记录下来
-      this.setData({ startX: e.touches[0].clientX });
+      this.setData({ startX: e.touches[0].clientX, delIndex: index });
     }
   },
 
