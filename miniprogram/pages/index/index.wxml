@@ -1,17 +1,37 @@
 <scroll-view scroll-y="{{isScroll}}" style='height: {{windowHeight}}px;'>
-  <view class='notes-wrap'>
-    <view class='notes-list'>
-      <view class='notes-item' wx:for="{{dataList}}" wx:key="{{index}}" wx:if="{{!item.ischeck}}" bindtouchstart='bindtouchstart' bindtouchmove='bindtouchmove' bindtouchend='bindtouchend' style="{{item.styleX}}" data-index="{{index}}">
+  <view class='product-container'>
+    <view class='product-list'>
+      <!-- <view class='notes-item' wx:for="{{dataList}}" wx:key="{{index}}" wx:if="{{!item.ischeck}}" bindtouchstart='bindtouchstart' bindtouchmove='bindtouchmove' bindtouchend='bindtouchend' style="{{item.styleX}}" data-index="{{index}}">
         <checkbox class='notes-check' bindtap='bindcheckfinish' data-id="{{item._id}}"></checkbox>
         <text bindtap='goToDetail' data-id="{{item._id}}">{{item.noteInfo}}</text>
+      </view> -->
+      <view class="product-item" wx:for="{{dataList}}" wx:for-index="index" wx:key="{{item._id}}">
+        <movable-area>
+          <movable-view out-of-bounds="true" direction="horizontal" x="{{item.xmove}}" inertia="true" data-productIndex="{{index}}" bindtouchstart="handleTouchStart" bindtouchend="handleTouchEnd" bindchange="handleMovableChange">
+            <view class="product-item-wrap">
+              <view class="product-movable-item" bindtap='goToDetail' data-id="{{item._id}}">
+                <checkbox class='notes-check' bindtap='bindcheckfinish' data-id="{{item._id}}"></checkbox>
+                <text>{{item.noteInfo}}</text>
+              </view>
+            </view>
+          </movable-view>
+        </movable-area>
+        <view class="delete-btn" data-id="{{item._id}}" bindtap="handleDeleteProduct">删除</view>
       </view>
     </view>
     <view class='notes-sub-title' wx:if="{{!!dataList.length}}">已完成</view>
-    <view class='notes-list'>
-      <view class='notes-item notes-item-checked' wx:for="{{dataList}}" wx:key="{{index}}" wx:if="{{!!item.ischeck}}">
-        <checkbox class='notes-check' bindtap='bindcheckfinish' data-id="{{item._id}}" checked='{{true}}' disabled='{{true}}' />
-        <text>{{item.noteInfo}}</text>
+    <view class='product-list'>
+      <view class="product-item" wx:for="{{dataList}}" wx:for-index="index" wx:key="{{item._id}}" wx:if="{{!!item.ischeck}}">
+        <view class="product-item-wrap">
+          <view class="product-movable-item item-checked" bindtap='goToDetail' data-id="{{item._id}}">
+            <checkbox class='notes-check' bindtap='bindcheckfinish' data-id="{{item._id}}" checked='{{true}}' disabled='{{true}}' />
+            <text>{{item.noteInfo}}</text>
+          </view>
+        </view>
       </view>
+      <!-- <view class='notes-item notes-item-checked' wx:for="{{dataList}}" wx:key="{{index}}" wx:if="{{!!item.ischeck}}">
+        <text>{{item.noteInfo}}</text>
+      </view> -->
     </view>
   </view>
   <view class='notes-add' bindtap='showAddInput'>+</view>

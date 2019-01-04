@@ -19,12 +19,10 @@ Page({
     windowHeight: 0,
     // tabBar的高度
     tabBarHeight: 0,
-    // 开始触摸的点
-    startX: 0,
-    // 删除按钮的总长度
-    delBtnWidth: 100,
-    // 记录当前进行删除按钮操作的index
-    delIndex: -1
+    // 当前显示删除按钮的index
+    currentProductIndex: -1,
+
+    canIUse: wx.canIUse('button.open-type.getUserInfo'),
   },
 
   onLoad: function () {
@@ -33,7 +31,6 @@ Page({
     // 计算tabBar的高度
     wx.getSystemInfo({
       success: function (res) {
-        console.log(res);
         if (res.errMsg === 'getSystemInfo:ok') {
           const tabBarHeight = res.screenHeight - res.windowHeight;
           that.setData({ tabBarHeight, windowHeight: res.windowHeight });
@@ -54,11 +51,9 @@ Page({
   // 显示输入框，并且弹出键盘
   showAddInput: function () {
     const { delIndex, dataList } = this.data;
-    dataList[delIndex].styleX = '';
     this.setData({
       focus: true,
       isScroll: false,
-      dataList
     });
   },
 
@@ -98,9 +93,9 @@ Page({
     //   console.err(err);
     // });
 
-    wx.showLoading({
-      title: '请稍候',
-    });
+    // wx.showLoading({
+    //   title: '请稍候',
+    // });
     // 利用云函数来查找列表
     wx.cloud.callFunction({
       name: 'indexQuery',
@@ -108,7 +103,7 @@ Page({
         _openid: 'oWl_80LXwJ4Ch1GCMc500cYVvfE4'
       },
       complete: res => {
-        wx.hideLoading();
+        // wx.hideLoading();
         if (res.errMsg === 'cloud.callFunction:ok') {
           // 将数据进行反转
           const data = res.result.length > 1 ? res.result.reverse() : res.result;
@@ -173,74 +168,115 @@ Page({
     })
   },
 
-  // 手指开始移动时
-  bindtouchstart: function (e) {
+  /**
+   * 显示删除按钮
+   */
+  showDeleteButton: function (productIndex) {
+    this.setXmove(productIndex, -65)
+  },
+
+  /**
+   * 隐藏删除按钮
+   */
+  hideDeleteButton: function (productIndex) {
+    this.setXmove(productIndex, 0)
+  },
+
+  /**
+   * 设置movable-view位移
+   */
+  setXmove: function (productIndex, xmove) {
+    let dataList = this.data.dataList
+    dataList[productIndex].xmove = xmove
+
+    this.setData({
+      dataList
+    })
+  },
+
+  /**
+   * 处理movable-view移动事件
+   */
+  handleMovableChange: function (e) {
     const that = this;
-    const { delIndex, dataList } = that.data;
-    // 判断是否只有一个触摸点
-    if (e.touches.length === 1) {
-      if (delIndex !== -1) {
-        dataList[delIndex].styleX = '';
+    const { currentProductIndex } = that.data;
+    const productIndex = e.currentTarget.dataset.productindex;
+    if (e.detail.source === 'friction') {
+      if (Math.abs(e.detail.x) >= 30) {
+        this.showDeleteButton(productIndex)
+      } else {
+        this.hideDeleteButton(productIndex)
       }
-      const index = e.currentTarget.dataset.index;
-      // 将开始触摸的点记录下来
-      this.setData({ startX: e.touches[0].clientX, delIndex: index });
+    } else if (e.detail.source === 'out-of-bounds' && e.detail.x === 0) {
+      this.hideDeleteButton(productIndex)
     }
   },
 
-  // 手指移动中
-  bindtouchmove: function (e) {
+  /**
+   * 处理touchstart事件
+   */
+  handleTouchStart(e) {
+    const {currentProductIndex} = this.data;
+    const productIndex = e.currentTarget.dataset.productindex;
+    this.startX = e.touches[0].pageX;
+    if (productIndex !== currentProductIndex && currentProductIndex !== -1) {
+      this.hideDeleteButton(currentProductIndex);
+    }
+  },
+
+  /**
+   * 处理touchend事件
+   */
+  handleTouchEnd(e) {
+    const productIndex = e.currentTarget.dataset.productindex;
+    if (e.changedTouches[0].pageX < this.startX && e.changedTouches[0].pageX - this.startX <= -30) {
+      this.showDeleteButton(productIndex)
+    } else if (e.changedTouches[0].pageX > this.startX && e.changedTouches[0].pageX - this.startX < 30) {
+      this.showDeleteButton(productIndex)
+    } else {
+      this.hideDeleteButton(productIndex)
+    }
+    // 将当前的productIndex存在currentProductIndex中
+    this.setData({ currentProductIndex: productIndex });
+  },
+
+  /**
+   * 删除产品
+   */
+  handleDeleteProduct: function ({ currentTarget: { dataset: { id } } }) {
     const that = this;
-    const { startX, delBtnWidth, dataList } = that.data;
-    // 当前item向左移动的位移
-    let styleX = '';
-    // 判断是否只有一个触摸点
-    if (e.touches.length === 1) {
-      const moveX = e.touches[0].clientX;
-      // 用startX - moveX
-      const diffX = startX - moveX;
-      // 通过left来改变当前item的位移
-      if (diffX === 0 || diffX < 0) {
-        styleX = "margin-left: 0";
-      } else {
-        styleX = "margin-left: -" + diffX + "px";
-        if (diffX >= delBtnWidth) {
-          styleX = "margin-left: -" + delBtnWidth + "px";
+    const db = wx.cloud.database();
+    db.collection('notes').doc(id).remove({
+      success(res) {
+        if (res.errMsg === 'document.remove:ok') {
+          that.bindDataList();
         }
       }
+    })
+    // let dataList = this.data.dataList
+    // let productIndex = dataList.findIndex(item => item._id = id)
 
-      //获取手指触摸的是哪一个item
-      const index = e.currentTarget.dataset.index;
+    // dataList.splice(productIndex, 1)
 
-      const list = dataList;
-      list[index].styleX = styleX;
-      that.setData({ dataList: list });
-    }
+    // this.setData({
+    //   dataList
+    // })
+    // if (dataList[productIndex]) {
+    //   this.setXmove(productIndex, 0)
+    // }
   },
 
-  // 手指结束移动时
-  bindtouchend: function (e) {
-    const that = this;
-    const { startX, delBtnWidth, dataList } = that.data;
-    // 判断是否只有一个触摸点
-    if (e.changedTouches.length === 1) {
-      const endX = e.changedTouches[0].clientX;
-      // 如果起点到终点的距离小于delBtnWidth/2，那么还是回到0的位置，如果大于delBtnWidth/2.那么则显示删除按钮
-      const diffX = startX - endX;
-      // 当前item向左移动的位移
-      let styleX = '';
-      if (diffX < (delBtnWidth / 2)) {
-        styleX = "margin-left: 0";
-      } else {
-        styleX = "margin-left: -" + delBtnWidth + "px";
-      }
+  /**
+   * slide-delete 删除产品
+   */
+  // handleSlideDelete({ detail: { id } }) {
+  //   let slideProductList = this.data.slideProductList
+  //   let productIndex = slideProductList.findIndex(item => item.id = id)
 
-      //获取手指触摸的是哪一个item
-      const index = e.currentTarget.dataset.index;
+  //   slideProductList.splice(productIndex, 1)
 
-      const list = dataList;
-      list[index].styleX = styleX;
-      that.setData({ dataList: list });
-    }
-  }
+  //   this.setData({
+  //     slideProductList
+  //   })
+  // }
 })
