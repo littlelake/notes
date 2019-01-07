@@ -96,6 +96,7 @@ Page({
     // wx.showLoading({
     //   title: '请稍候',
     // });
+    wx.showNavigationBarLoading();
     // 利用云函数来查找列表
     wx.cloud.callFunction({
       name: 'indexQuery',
@@ -104,6 +105,7 @@ Page({
       },
       complete: res => {
         // wx.hideLoading();
+        wx.hideNavigationBarLoading();
         if (res.errMsg === 'cloud.callFunction:ok') {
           // 将数据进行反转
           const data = res.result.length > 1 ? res.result.reverse() : res.result;
@@ -229,13 +231,13 @@ Page({
    */
   handleTouchEnd(e) {
     const productIndex = e.currentTarget.dataset.productindex;
-    if (e.changedTouches[0].pageX < this.startX && e.changedTouches[0].pageX - this.startX <= -30) {
-      this.showDeleteButton(productIndex)
-    } else if (e.changedTouches[0].pageX > this.startX && e.changedTouches[0].pageX - this.startX < 30) {
-      this.showDeleteButton(productIndex)
-    } else {
-      this.hideDeleteButton(productIndex)
-    }
+    // if (e.changedTouches[0].pageX < this.startX && e.changedTouches[0].pageX - this.startX <= -30) {
+    //   this.showDeleteButton(productIndex)
+    // } else if (e.changedTouches[0].pageX > this.startX && e.changedTouches[0].pageX - this.startX < 30) {
+    //   this.showDeleteButton(productIndex)
+    // } else {
+    //   this.hideDeleteButton(productIndex)
+    // }
     // 将当前的productIndex存在currentProductIndex中
     this.setData({ currentProductIndex: productIndex });
   },
@@ -265,18 +267,11 @@ Page({
     //   this.setXmove(productIndex, 0)
     // }
   },
-
-  /**
-   * slide-delete 删除产品
-   */
-  // handleSlideDelete({ detail: { id } }) {
-  //   let slideProductList = this.data.slideProductList
-  //   let productIndex = slideProductList.findIndex(item => item.id = id)
-
-  //   slideProductList.splice(productIndex, 1)
-
-  //   this.setData({
-  //     slideProductList
-  //   })
-  // }
+  
+  // 更多已完成链接
+  bindMoreFinished: function() {
+    wx.navigateTo({
+      url: '/pages/finished/finished',
+    });
+  }
 })

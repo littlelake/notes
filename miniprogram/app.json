@@ -9,7 +9,8 @@
     "pages/databaseGuide/databaseGuide",
     "pages/addFunction/addFunction",
     "pages/deployFunctions/deployFunctions",
-    "pages/chooseLib/chooseLib"
+    "pages/chooseLib/chooseLib",
+    "pages/finished/finished"
   ],
   "window": {
     "backgroundColor": "#fff",

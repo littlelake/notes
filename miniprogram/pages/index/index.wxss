@@ -161,6 +161,11 @@ checkbox .wx-checkbox-input {
   padding-right: 20rpx;
 }
 
+.product-list .product-item-wrap .product-movable-item .notes-txt {
+  display: inline-block;
+  width: 100%;
+}
+
 .product-list .product-item-wrap .product-movable-item.item-checked {
   color: #969AA3;
 }
@@ -200,4 +205,11 @@ checkbox .wx-checkbox-input {
   font-size: 28rpx;
   color: #969AA3;
   line-height: 60rpx;
+}
+
+.notes-more {
+  font-size: 26rpx;
+  text-align: center;
+  line-height: 100rpx;
+  color: #617dd7;
 }
