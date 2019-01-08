@@ -1,4 +1,7 @@
 {
   "navigationBarTitleText": "小记",
-  "disableScroll": true
+  "disableScroll": true,
+  "usingComponents": {
+    "calendar": "plugin://calendar/calendar"
+  }
 }

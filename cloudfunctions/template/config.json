@@ -1,0 +1,9 @@
+{
+  "triggers": [
+    {
+      "name": "notes",
+      "type": "timer",
+      "config": "*/59 * * * * * *"
+    }
+  ]
+}

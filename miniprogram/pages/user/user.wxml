@@ -20,7 +20,7 @@
 <view class='tabs'>
   <view class='tab'>
     <view class='tab-icon'>
-      <image src='../../images/settings.png'></image>
+      <image src='../../images/list.png'></image>
     </view>
     <view class='tab-text'>
       已完成

@@ -1,10 +1,6 @@
 <scroll-view scroll-y="{{isScroll}}" style='height: {{windowHeight}}px;'>
   <view class='product-container'>
     <view class='product-list'>
-      <!-- <view class='notes-item' wx:for="{{dataList}}" wx:key="{{index}}" wx:if="{{!item.ischeck}}" bindtouchstart='bindtouchstart' bindtouchmove='bindtouchmove' bindtouchend='bindtouchend' style="{{item.styleX}}" data-index="{{index}}">
-        <checkbox class='notes-check' bindtap='bindcheckfinish' data-id="{{item._id}}"></checkbox>
-        <text bindtap='goToDetail' data-id="{{item._id}}">{{item.noteInfo}}</text>
-      </view> -->
       <view class="product-item" wx:for="{{dataList}}" wx:for-index="index" wx:key="{{item._id}}" wx:if="{{!item.ischeck}}">
         <movable-area>
           <movable-view out-of-bounds="true" direction="horizontal" x="{{item.xmove}}" inertia="true" data-productIndex="{{index}}" bindtouchstart="handleTouchStart" bindtouchend="handleTouchEnd" bindchange="handleMovableChange">
@@ -29,15 +25,46 @@
           </view>
         </view>
       </view>
-      <!-- <view class='notes-item notes-item-checked' wx:for="{{dataList}}" wx:key="{{index}}" wx:if="{{!!item.ischeck}}">
-        <text>{{item.noteInfo}}</text>
-      </view> -->
     </view>
     <view class='notes-more' wx:if="{{!!dataList.length}}" bindtap='bindMoreFinished'>更多已完成>></view>
   </view>
 </scroll-view>
-<view class='notes-add' bindtap='showAddInput'>+</view>
+<view class='notes-add' bindtap='bindAddInput'>+</view>
 <view class='notes-mask'></view>
-<view class='notes-input {{isShow ? "notes-input-show" : ""}}' style="bottom: {{bottom}}px;">
+<!-- <view class='notes-input {{isShow ? "notes-input-show" : ""}}' style="bottom: {{bottom}}px;"> -->
+<view class='notes-input notes-input-show' style="bottom: 100px;">
   <input value="{{inputValue}}" placeholder='例如：我今天发工资啦！！！' placeholder-class='notes-add-placeholder' confirm-type='send' focus='{{focus}}' bindconfirm='bindNotesAdd' bindfocus="bindfocus" bindblur='bindblur' adjust-position="{{false}}" cursor-spacing="100"></input>
+  <view class='notes-other'>
+    <view class='notes-other-item' bindtap='bindOpeningCal'>
+      <image src='../../images/cal.png'></image>
+    </view>
+  </view>
+</view>
+<view class='notes-cal {{isCalShow ? "" : "notes-cal-close"}}'>
+  <view class='notes-cal-panel'>
+    <view class='notes-cal-title'>
+      <text class='title-btn' bindtap='bindClearCal'>清除</text>
+      <text class='title-txt'>日期</text>
+      <text class='title-btn' bindtap='bindGetCal'>完成</text>
+    </view>
+    <view class='notes-cal-normal'>
+      <view class='normal-item' bindtap='bindTodayCal'>
+        <image src="../../images/today.png"></image>
+        <text>今天</text>
+      </view>
+      <view class='normal-item' bindtap='bindTomorrowCal'>
+        <image src="../../images/sunrise.png"></image>
+        <text>明天</text>
+      </view>
+      <view class='normal-item' bindtap='bindAfternoonCal'>
+        <image src="../../images/sunset.png"></image>
+        <text>今天下午</text>
+      </view>
+    </view>
+    <calendar weeks-type="cn" header="{{false}}" binddayClick="dayClick" days-color="{{dayColor}}" />
+    <view class='notes-cal-time'></view>
+  </view>
+  <form report-submit="true" bindsubmit="button_one">
+    <button formType="submit">发给自己模版消息</button>
+  </form>
 </view>

@@ -213,3 +213,81 @@ checkbox .wx-checkbox-input {
   line-height: 100rpx;
   color: #617dd7;
 }
+
+.notes-other-item image {
+  padding: 20rpx 20rpx 0;
+  width: 44rpx;
+  height: 44rpx;
+}
+
+.notes-cal {
+  position: fixed;
+  display: flex;
+  width: 100%;
+  height: 100%;
+  justify-content: center;
+  align-items: center;
+  background-color: rgba(0, 0, 0, .3);
+  z-index: 1000;
+}
+
+.notes-cal-close {
+  display: none;
+}
+
+.notes-cal .notes-cal-panel {
+  width: 84%;
+  padding: 36rpx;
+  background-color: #fff;
+  border-radius: 20rpx;
+}
+
+.notes-cal .notes-cal-panel-hide {
+  display: none;
+}
+
+.notes-cal .notes-cal-title {
+  display: flex;
+  line-height: 60rpx;
+  font-size: 28rpx;
+}
+
+.notes-cal .notes-cal-title .title-btn {
+  width: 160rpx;
+  color: #617dd7;
+}
+
+.notes-cal .notes-cal-title .title-btn:last-child {
+  text-align: right;
+}
+
+.notes-cal .notes-cal-title .title-txt {
+  flex: 1;
+  font-size: 36rpx;
+  text-align: center;
+}
+
+.notes-cal .notes-cal-normal {
+  display: flex;
+  padding-top: 30rpx;
+  padding-bottom: 40rpx;
+}
+
+.notes-cal .notes-cal-normal .normal-item {
+  flex: 1;
+  text-align: center;
+}
+
+.notes-cal-normal .normal-item image {
+  width: 100rpx;
+  height: 100rpx;
+}
+
+.notes-cal-normal .normal-item text {
+  display: block;
+  font-size: 24rpx;
+}
+
+.calendar--calendar-cell {
+  margin-top:10px !important;
+}
