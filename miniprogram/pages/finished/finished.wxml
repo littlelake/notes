@@ -1,1 +1,2 @@
-  
+  <button open-type="share">转发</button>
+  <!-- <button bindtap='bindShare'>转发1</button> -->

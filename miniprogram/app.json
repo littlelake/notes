@@ -1,13 +1,13 @@
 {
   "pages": [
+    "pages/finished/finished",
     "pages/index/index",
     "pages/user/user",
     "pages/detail/detail",
     "pages/aboutUs/aboutUs",
     "pages/userConsole/userConsole",
     "pages/storageConsole/storageConsole",
-    "pages/addFunction/addFunction",
-    "pages/finished/finished"
+    "pages/addFunction/addFunction"
   ],
   "window": {
     "backgroundColor": "#fff",

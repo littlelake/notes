@@ -22,7 +22,7 @@
     <view class='tab-icon'>
       <image src='../../images/list.png'></image>
     </view>
-    <view class='tab-text'>
+    <view class='tab-text' bindtap='bindFinished'>
       已完成
     </view>
   </view>

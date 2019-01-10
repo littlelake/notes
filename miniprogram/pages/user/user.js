@@ -51,6 +51,13 @@ Page({
     })
   },
 
+  // 已完成页面跳转
+  bindFinished() {
+    wx.navigateTo({
+      url: 'pages/finished/finished',
+    })
+  },
+
   /**
    * 生命周期函数--监听页面初次渲染完成
    */
