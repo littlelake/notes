@@ -29,6 +29,8 @@ Page({
     selectedDate: '',
     // 当前选择时间
     selectTime: '',
+    // 当前formId
+    formId: '',
 
     canIUse: wx.canIUse('button.open-type.getUserInfo'),
   },
@@ -62,8 +64,9 @@ Page({
   },
 
   // 点击新增按钮
-  bindAddInput: function () {
-    this.setData({ selectedDate: '' });
+  bindAddInput: function (e) {
+    const formId = e.detail.formId;
+    this.setData({ selectedDate: '', formId });
     this.showAddInput();
   },
 
@@ -148,7 +151,7 @@ Page({
 
   // 提交输入框中的信息
   bindNotesAdd: function (e) {
-    const { selectedDate } = this.data;
+    const { selectedDate, formId } = this.data;
     const value = e.detail.value;
     const db = wx.cloud.database();
     // 如果输入的信息为空，那么什么都不操作
@@ -157,7 +160,8 @@ Page({
       data: {
         ischeck: false,
         noteInfo: value,
-        date: selectedDate
+        date: selectedDate,
+        formId
       }
     }).then(res => {
       this.setData({
