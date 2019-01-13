@@ -3,7 +3,7 @@
     {
       "name": "notes",
       "type": "timer",
-      "config": "*/59 * * * * * *"
+      "config": "* */1 * * * * *"
     }
   ]
 }

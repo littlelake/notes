@@ -313,8 +313,9 @@ Page({
   // 打开日历
   bindOpeningCal: function () {
     // 设置当前日历的日期，将当前日期标注背景色
+    const currentDate = new Date().getDate();
     this.setData({
-      dayColor: [{ month: 'current', day: 8, color: '#fff', background: '#617dd7' }],
+      dayColor: [{ month: 'current', day: currentDate, color: '#fff', background: '#617dd7' }],
       isCalShow: true,
       isShow: false,
       focus: false,
@@ -345,10 +346,33 @@ Page({
 
   },
 
-  // 今天日期
-  bindTodayCal: function () {
+  // 日历中三个按钮
+  bindBtnCal: function (e) {
+    console.log(e);
+    const type = e.currentTarget.dataset.type;
     const date = new Date();
-    const selectedDate = date.getFullYear() + '-' + this.formatDate(date.getMonth() + 1) + '-' + this.formatDate(date.getDate());
+    let currentDate = date.getFullYear() + '-' + this.formatDate(date.getMonth() + 1) + '-' + this.formatDate(date.getDate());;
+    let selectedDate = 0;
+    switch (type) {
+      case 'today':
+        // 设定今天的提交日期为YYYY-MM-DD 09:00:00
+        selectedDate = new Date(currentDate + ' 09:00:00').getTime();
+        break;
+      case 'tomorrow':
+        // 设定今天的提交日期为YYYY-MM-DD 09:00:00
+        const otherDate = new Date(new Date().getTime() + 24 * 60 * 60 * 1000);
+        currentDate = otherDate.getFullYear() + '-' + this.formatDate(otherDate.getMonth() + 1) + '-' + this.formatDate(otherDate.getDate());
+        selectedDate = new Date(currentDate + ' 09:00:00').getTime();
+        break;
+      case 'afternoon':
+        // 设定今天的提交日期为YYYY-MM-DD 13:00:00
+        selectedDate = new Date(currentDate + ' 13:00:00').getTime();
+        break;
+      default:
+        // 设定今天的提交日期为YYYY-MM-DD 09:00:00
+        selectedDate = new Date(currentDate + ' 09:00:00').getTime();
+        break;
+    }
     this.setData({ isCalShow: false, selectedDate });
     this.showAddInput();
   },

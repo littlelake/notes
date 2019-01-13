@@ -50,15 +50,15 @@
       <text class='title-btn' bindtap='bindGetCal'>完成</text>
     </view>
     <view class='notes-cal-normal'>
-      <view class='normal-item' bindtap='bindTodayCal'>
+      <view class='normal-item' bindtap='bindBtnCal' data-type="today">
         <image src="../../images/today.png"></image>
         <text>今天</text>
       </view>
-      <view class='normal-item' bindtap='bindTomorrowCal'>
+      <view class='normal-item' bindtap='bindBtnCal' data-type="tomorrow">
         <image src="../../images/sunrise.png"></image>
         <text>明天</text>
       </view>
-      <view class='normal-item' bindtap='bindAfternoonCal'>
+      <view class='normal-item' bindtap='bindBtnCal' data-type="afternoon">
         <image src="../../images/sunset.png"></image>
         <text>今天下午</text>
       </view>
