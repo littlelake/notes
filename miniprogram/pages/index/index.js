@@ -25,10 +25,12 @@ Page({
     dayColor: [],
     // 是否显示日历
     isCalShow: false,
-    // 当前选择日期
-    selectedDate: '',
+    // 当前选择日期毫秒数
+    selectedDate: 0,
     // 当前选择时间
     selectTime: '09:00',
+    // 当前点击的日期
+    clickedDate: '',
     // 当前formId
     formId: '',
 
@@ -314,8 +316,9 @@ Page({
 
   // 打开日历
   bindOpeningCal: function () {
+    const { selectedDate } = this.data;
     // 设置当前日历的日期，将当前日期标注背景色
-    const currentDate = new Date().getDate();
+    const currentDate = !selectedDate ? new Date().getDate() : new Date(selectedDate).getDate();
     this.setData({
       dayColor: [{ month: 'current', day: currentDate, color: '#fff', background: '#3897dd' }],
       isCalShow: true,
@@ -327,7 +330,7 @@ Page({
   // 点击日历日期
   dayClick: function (e) {
     const detail = e.detail;
-    const selectedDate = new Date(detail.year + '-' + detail.month + '-' + detail.day + ' 09:00:00').getTime();
+    const clickedDate = detail.year + '-' + detail.month + '-' + detail.day
     this.setData({
       dayColor: [{
         month: 'current',
@@ -335,7 +338,7 @@ Page({
         color: '#fff',
         background: '#3897dd'
       }],
-      selectedDate
+      clickedDate
     })
   },
 
@@ -347,7 +350,8 @@ Page({
 
   // 点击日历完成按钮
   bindGetCal: function () {
-    const { selectedDate } = this.data;
+    const { clickedDate, selectTime } = this.data;
+    const selectedDate = this.getMillisecond(clickedDate, selectTime);
     // 判断选择的日期是否小于当前日期
     if (selectedDate < new Date().getTime()) {
       wx.showToast({
@@ -356,7 +360,7 @@ Page({
       });
       return;
     }
-    this.setData({ isCalShow: false });
+    this.setData({ isCalShow: false, selectedDate });
     this.showAddInput();
   },
 
@@ -402,6 +406,11 @@ Page({
       val = parseInt(val, 10);
     }
     return val > 9 ? val : '0' + val;
+  },
+
+  // 将日期由YYYY-MM-DD或YYYY-M-D变为毫秒数
+  getMillisecond(date, time) {
+    return new Date(date + ' ' + time).getTime();
   },
 
   // 发送给自己模版消息
