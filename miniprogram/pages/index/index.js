@@ -28,7 +28,7 @@ Page({
     // 当前选择日期
     selectedDate: '',
     // 当前选择时间
-    selectTime: '',
+    selectTime: '09:00',
     // 当前formId
     formId: '',
 
@@ -317,7 +317,7 @@ Page({
     // 设置当前日历的日期，将当前日期标注背景色
     const currentDate = new Date().getDate();
     this.setData({
-      dayColor: [{ month: 'current', day: currentDate, color: '#fff', background: '#617dd7' }],
+      dayColor: [{ month: 'current', day: currentDate, color: '#fff', background: '#3897dd' }],
       isCalShow: true,
       isShow: false,
       focus: false,
@@ -333,7 +333,7 @@ Page({
         month: 'current',
         day: detail.day,
         color: '#fff',
-        background: '#617dd7'
+        background: '#3897dd'
       }],
       selectedDate
     })
@@ -390,16 +390,6 @@ Page({
     this.showAddInput();
   },
 
-  // 明天日期
-  bindTomorrowCal: function () {
-
-  },
-
-  // 今天下午
-  bindAfternoonCal: function () {
-
-  },
-
   // 关闭日历弹框
   bindCloseCalModal: function () {
 
@@ -447,5 +437,11 @@ Page({
         console.error('[云函数] [login] 调用失败', err)
       }
     })
-  }
+  },
+  bindTimeChange(e) {
+    console.log('picker发送选择改变，携带值为', e.detail.value)
+    this.setData({
+      selectTime: e.detail.value
+    })
+  },
 })

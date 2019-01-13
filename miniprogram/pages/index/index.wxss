@@ -22,7 +22,8 @@ page {
   color: #d0d0d0;
 }
 
-.notes-wrap .notes-list .notes-item text, .notes-wrap .notes-list .notes-item-checked text {
+.notes-wrap .notes-list .notes-item text,
+.notes-wrap .notes-list .notes-item-checked text {
   width: calc(100% - 100rpx);
   white-space: nowrap;
   text-overflow: ellipsis;
@@ -38,7 +39,7 @@ checkbox .wx-checkbox-input {
   margin-top: -4rpx;
 }
 
-.notes-wrap .notes-list .notes-item .notes-check{
+.notes-wrap .notes-list .notes-item .notes-check {
   padding-right: 20rpx;
   vertical-align: middle;
 }
@@ -49,7 +50,7 @@ checkbox .wx-checkbox-input {
   bottom: 100rpx;
   width: 100rpx;
   height: 100rpx;
-  background: #617dd7;
+  background: #3897dd;
   color: #fff;
   text-align: center;
   line-height: 95rpx;
@@ -93,7 +94,7 @@ checkbox .wx-checkbox-input {
 .product-list .product-item {
   position: relative;
   width: 100vw;
-  border-bottom: 1rpx solid #E9E9E9;
+  border-bottom: 1rpx solid #e9e9e9;
   box-sizing: border-box;
   background: #fff;
   z-index: 999;
@@ -102,7 +103,7 @@ checkbox .wx-checkbox-input {
 .slide-product-list .slide-product-item {
   position: relative;
   width: 100vw;
-  border-bottom: 2rpx solid #E9E9E9;
+  border-bottom: 2rpx solid #e9e9e9;
   box-sizing: border-box;
   background: #fff;
   z-index: 999;
@@ -124,14 +125,14 @@ checkbox .wx-checkbox-input {
   position: absolute;
   top: 0;
   bottom: 0;
-  right: 0; 
+  right: 0;
   width: 120rpx;
   font-family: PingFangSC-Regular;
   font-size: 24rpx;
   color: #fff;
   line-height: 120rpx;
   z-index: 1;
-  background: #E66671;
+  background: #e66671;
   text-align: center;
 }
 
@@ -165,13 +166,13 @@ checkbox .wx-checkbox-input {
 }
 
 .product-list .product-item-wrap .product-movable-item.item-checked {
-  color: #969AA3;
+  color: #969aa3;
 }
 
 .product-list .product-item-wrap .product-movable-item-name {
   font-family: PingFangSC-Regular;
   font-size: 28rpx;
-  color: #71747A;
+  color: #71747a;
   line-height: 60rpx;
   margin-right: 10rpx;
   overflow: hidden;
@@ -180,7 +181,6 @@ checkbox .wx-checkbox-input {
 }
 
 .product-list .product-item-wrap .product-movable-item-code {
-  
 }
 
 .product-list .product-item-wrap .product-movable-item-amount {
@@ -192,7 +192,7 @@ checkbox .wx-checkbox-input {
 .product-list .product-item-wrap .product-movable-item-amount .amount {
   width: 120rpx;
   font-size: 28rpx;
-  color: #383A3D;
+  color: #383a3d;
   line-height: 60rpx;
 }
 
@@ -201,7 +201,7 @@ checkbox .wx-checkbox-input {
   top: 0;
   right: 30rpx;
   font-size: 28rpx;
-  color: #969AA3;
+  color: #969aa3;
   line-height: 60rpx;
 }
 
@@ -209,7 +209,7 @@ checkbox .wx-checkbox-input {
   font-size: 26rpx;
   text-align: center;
   line-height: 100rpx;
-  color: #617dd7;
+  color: #3897dd;
 }
 
 .notes-other-item image {
@@ -225,7 +225,7 @@ checkbox .wx-checkbox-input {
   height: 100%;
   justify-content: center;
   align-items: center;
-  background-color: rgba(0, 0, 0, .3);
+  background-color: rgba(0, 0, 0, 0.3);
   z-index: 1000;
 }
 
@@ -252,7 +252,7 @@ checkbox .wx-checkbox-input {
 
 .notes-cal .notes-cal-title .title-btn {
   width: 160rpx;
-  color: #617dd7;
+  color: #3897dd;
 }
 
 .notes-cal .notes-cal-title .title-btn:last-child {
@@ -287,5 +287,34 @@ checkbox .wx-checkbox-input {
 }
 
 .calendar--calendar-cell {
-  margin-top:10px !important;
+  margin-top: 10px !important;
+}
+
+.notes-cal-time .picker {
+  display: flex;
+  height: 80rpx;
+  justify-content: center;
+  align-items: center;
+  font-size: 26rpx;
+  font-weight: bold;
+}
+
+.notes-cal-time picker image {
+  padding-right: 20rpx;
+  width: 44rpx;
+  height: 44rpx;
+}
+
+.notes-cal-time picker text {
+  flex: 1;
+  display: inline-block;
+  color: #3897dd;
+}
+
+.notes-cal-time picker text:first-child {
+  text-align: left;
+}
+
+.notes-cal-time picker text:last-child {
+  text-align: right;
 }
