@@ -1,2 +1,9 @@
-  <button open-type="share">转发</button>
-  <!-- <button bindtap='bindShare'>转发1</button> -->
+<view class='product-list'>
+  <view class="product-item" wx:for="{{dataList}}" wx:for-index="index" wx:key="{{item._id}}">
+    <view class="product-item-wrap">
+      <view class="product-movable-item item-checked">
+        <text bindtap='goToDetail' data-id="{{item._id}}" class='notes-txt'>{{item.noteInfo}}</text>
+      </view>
+    </view>
+  </view>
+</view>

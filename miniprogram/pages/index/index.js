@@ -168,7 +168,9 @@ Page({
         isShow: false,
         focus: false,
         inputValue: '',
-        isScroll: true
+        isScroll: true,
+        // 将选择日期设为空
+        selectedDate: ''
       });
       this.bindDataList();
     }).catch(err => {
@@ -325,30 +327,41 @@ Page({
   // 点击日历日期
   dayClick: function (e) {
     const detail = e.detail;
+    const selectedDate = new Date(detail.year + '-' + detail.month + '-' + detail.day + ' 09:00:00').getTime();
     this.setData({
       dayColor: [{
         month: 'current',
         day: detail.day,
         color: '#fff',
         background: '#617dd7'
-      }]
+      }],
+      selectedDate
     })
   },
 
   // 清除日历
   bindClearCal: function () {
-    this.setData({ isCalShow: false });
+    this.setData({ isCalShow: false, selectedDate: '' });
     this.showAddInput();
   },
 
   // 点击日历完成按钮
   bindGetCal: function () {
-
+    const { selectedDate } = this.data;
+    // 判断选择的日期是否小于当前日期
+    if (selectedDate < new Date().getTime()) {
+      wx.showToast({
+        icon: 'none',
+        title: '日期不能小于当前日期',
+      });
+      return;
+    }
+    this.setData({ isCalShow: false });
+    this.showAddInput();
   },
 
   // 日历中三个按钮
   bindBtnCal: function (e) {
-    console.log(e);
     const type = e.currentTarget.dataset.type;
     const date = new Date();
     let currentDate = date.getFullYear() + '-' + this.formatDate(date.getMonth() + 1) + '-' + this.formatDate(date.getDate());;

@@ -1,1 +1,129 @@
-/* miniprogram/pages/finished/finished.wxss */
+page {
+  font-family: PingFangSC-Regular;
+  background: #fff;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  font-size: 32rpx;
+  color: #333;
+}
+
+.product-list .product-item {
+  position: relative;
+  width: 100vw;
+  border-bottom: 1rpx solid #E9E9E9;
+  box-sizing: border-box;
+  background: #fff;
+  z-index: 999;
+}
+
+.slide-product-list .slide-product-item {
+  position: relative;
+  width: 100vw;
+  border-bottom: 2rpx solid #E9E9E9;
+  box-sizing: border-box;
+  background: #fff;
+  z-index: 999;
+}
+
+.product-list .product-item movable-area {
+  height: 120rpx;
+  width: calc(100vw - 120rpx);
+}
+
+.product-list .product-item movable-view {
+  height: 120rpx;
+  width: 100vw;
+  background: #fff;
+  z-index: 999;
+}
+
+.product-list .product-item .delete-btn {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  right: 0; 
+  width: 120rpx;
+  font-family: PingFangSC-Regular;
+  font-size: 24rpx;
+  color: #fff;
+  line-height: 120rpx;
+  z-index: 1;
+  background: #E66671;
+  text-align: center;
+}
+
+.product-list .product-item-wrap {
+  position: relative;
+  display: flex;
+  align-items: center;
+  padding-left: 40rpx;
+  box-sizing: border-box;
+  justify-content: center;
+  line-height: 120rpx;
+}
+
+.product-list .product-item-wrap .product-movable-item {
+  flex: 1;
+  width: calc(100% - 120rpx);
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  display: inline-block;
+  overflow: hidden;
+  vertical-align: middle;
+}
+
+.product-list .product-item-wrap .product-movable-item .notes-check {
+  padding-right: 20rpx;
+}
+
+.product-list .product-item-wrap .product-movable-item .notes-txt {
+  display: inline-block;
+  width: 100%;
+}
+
+.product-list .product-item-wrap .product-movable-item.item-checked {
+  color: #969AA3;
+}
+
+.product-list .product-item-wrap .product-movable-item-name {
+  font-family: PingFangSC-Regular;
+  font-size: 28rpx;
+  color: #71747A;
+  line-height: 60rpx;
+  margin-right: 10rpx;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+.product-list .product-item-wrap .product-movable-item-amount {
+  flex: 0 0 auto;
+  padding-right: 80rpx;
+  position: relative;
+}
+
+.product-list .product-item-wrap .product-movable-item-amount .amount {
+  width: 120rpx;
+  font-size: 28rpx;
+  color: #383A3D;
+  line-height: 60rpx;
+}
+
+.product-list .product-item-wrap .product-movable-item-amount .unit {
+  position: absolute;
+  top: 0;
+  right: 30rpx;
+  font-size: 28rpx;
+  color: #969AA3;
+  line-height: 60rpx;
+}
+
+.notes-wrap .notes-list .notes-item text, .notes-wrap .notes-list .notes-item-checked text {
+  width: calc(100% - 100rpx);
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  display: inline-block;
+  overflow: hidden;
+  vertical-align: middle;
+}

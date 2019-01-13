@@ -54,7 +54,7 @@ Page({
   // 已完成页面跳转
   bindFinished() {
     wx.navigateTo({
-      url: 'pages/finished/finished',
+      url: '/pages/finished/finished',
     })
   },
 

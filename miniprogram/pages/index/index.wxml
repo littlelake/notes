@@ -38,7 +38,8 @@
   <input value="{{inputValue}}" placeholder='例如：我今天发工资啦！！！' placeholder-class='notes-add-placeholder' confirm-type='send' focus='{{focus}}' bindconfirm='bindNotesAdd' bindfocus="bindfocus" bindblur='bindblur' adjust-position="{{false}}" cursor-spacing="100"></input>
   <view class='notes-other'>
     <view class='notes-other-item' bindtap='bindOpeningCal'>
-      <image src='../../images/cal.png'></image>
+      <image src='../../images/cal.png' wx:if="{{!selectedDate}}"></image>
+      <image src='../../images/cal_active.png' wx:if="{{!!selectedDate}}"></image>
     </view>
   </view>
 </view>

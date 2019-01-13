@@ -1,5 +1,3 @@
-/**index.wxss**/
-
 page {
   font-family: PingFangSC-Regular;
   background: #fff;

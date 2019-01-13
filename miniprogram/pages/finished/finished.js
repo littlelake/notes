@@ -5,33 +5,42 @@ Page({
    * 页面的初始数据
    */
   data: {
-
+    dataList: []
   },
 
-  onShareAppMessage: function (ops) {
-    if (ops.from === 'button') {
-      // 来自页面内转发按钮
-      console.log(ops.target)
-    }
-    return {
-      title: 'xx小程序',
-      path: '/pages/finished/finished',
-      imageUrl: '../../images/console-entrance.png',
-      success: function (res) {
-        // 转发成功
-        console.log("转发成功:" + JSON.stringify(res));
+  bindDataList() {
+    wx.showLoading({
+      title: '加载中',
+      mask: true
+    })
+    // 利用云函数来查找列表
+    wx.cloud.callFunction({
+      name: 'indexQuery',
+      data: {
+        _openid: 'oWl_80LXwJ4Ch1GCMc500cYVvfE4'
       },
-      fail: function (res) {
-        // 转发失败
-        console.log("转发失败:" + JSON.stringify(res));
+      complete: res => {
+        // wx.hideLoading();
+        wx.hideLoading();
+        if (res.errMsg === 'cloud.callFunction:ok') {
+          // 将数据进行反转
+          const data = res.result.length > 1 ? res.result.reverse() : res.result;
+          this.setData({
+            dataList: data
+          })
+        }
       }
-    }
+    });
   },
 
-  // 转发
-  // bindShare: function() {
-  //   this.onShareAppMessage();
-  // },
+  // 跳转到详情页面
+  goToDetail: function (e) {
+    // 获取当前列的id
+    const _id = e.target.dataset.id;
+    wx.navigateTo({
+      url: `/pages/detail/detail?id=${_id}`,
+    })
+  },
 
   /**
    * 生命周期函数--监听页面加载
@@ -51,7 +60,7 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function () {
-
+    this.bindDataList();
   },
 
   /**
